@@ -1087,7 +1087,7 @@ component accessors="true" {
 			.where( function( q ) {
 				var allKeyNames = keyNames();
 				for ( var i = 1; i <= allKeyNames.len(); i++ ) {
-					q.where( allKeyNames[ i ], id[ i ] );
+					q.where( allKeyNames[ i ], generateQueryParamStruct( allKeyNames[ i ], id[ i ] ) );
 				}
 			} )
 			.first();
@@ -3658,6 +3658,7 @@ component accessors="true" {
 		any value,
 		boolean checkNullValues = true
 	) {
+		arguments.column = listLast( arguments.column, "." );
 		// If that value is already a struct, pass it back unchanged.
 		if ( !isNull( arguments.value ) && isStruct( arguments.value ) ) {
 			return arguments.value;
